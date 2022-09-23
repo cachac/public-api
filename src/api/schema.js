@@ -1,5 +1,4 @@
 import { gql, makeExecutableSchema } from 'apollo-server-express'
-import { GraphQLDateTime } from 'graphql-iso-date'
 import directives from './directives'
 
 import user from './user'
@@ -13,11 +12,6 @@ const globalTypeDefs = gql`
     healthCheck: Boolean
   }
 `
-
-const customDateScalarResolver = {
-  Date: GraphQLDateTime
-}
-
 const healthCheck = {
   Query: {
     healthCheck: () => true
@@ -26,7 +20,7 @@ const healthCheck = {
 
 export default makeExecutableSchema({
   typeDefs: [globalTypeDefs, directives.typeDefs, user.typeDefs],
-  resolvers: [customDateScalarResolver, healthCheck, user.resolvers],
+  resolvers: [healthCheck, user.resolvers],
   schemaDirectives: {
     isAuth: directives.IsAuthenticatedDirective
   }
