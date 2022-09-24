@@ -3,8 +3,8 @@ name: Docker Image CI
 on:
   push:
     branches: ["stage"]
-    tags:
-      - '*'
+    # tags:
+    #   - '*'
 
 env:
   REGISTRY: cachac
@@ -19,20 +19,11 @@ jobs:
       - uses: actions/checkout@v3 # checkout github code
         name: Checkout code
 
-      - name: GitHub branch
-        run: |
-          echo "branch: ${{github.ref}}"
-
-      - name: GitHub Tag Name
-        run: |
-          echo "Tag name from GITHUB_REF_NAME: $GITHUB_REF_NAME"
-
       - name: Get current branch
         run: |
-          raw=$(git branch -r --contains ${{ github.ref }})
-          branch=${raw##*/}
-          echo "::set-output name=branch::$branch"
-          echo "Branch is $branch."
+          TAG=$(git tag | sort -V | tail -1)
+          echo "::set-output name=TAG::$TAG"
+          echo "Branch is $TAG."
 
 
 
