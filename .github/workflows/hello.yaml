@@ -5,6 +5,9 @@ on:
   push:
     branches: ["stage"]
 
+env:
+  TEXT: "mi nombre completo"
+
 # pipeline
 jobs:
 
@@ -13,5 +16,5 @@ jobs:
 
     steps:
       - name: print-to-screen
-        run: echo "Hello World!"
+        run: echo "Hello World ${{ env.TEXT }}!"
 
