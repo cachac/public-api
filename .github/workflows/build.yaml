@@ -28,7 +28,7 @@ jobs:
         id: tagVersion
         run: |
           echo ${{ env.RELEASE_VERSION }}
-          echo "::set-output name=RELEASE_VERSION::hello"
+          echo "::set-output name=RELEASE_VERSION::${{ env.RELEASE_VERSION }}"
 
   # - name: Login to DockerHub
   #   uses: docker/login-action@v2
