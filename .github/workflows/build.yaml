@@ -2,9 +2,9 @@ name: Docker Image CI
 
 on:
   push:
-    branches: ["stage"]
-    # tags:
-    #   - '*'
+    # branches: ["stage"]
+    tags:
+      - '*'
 
 env:
   REGISTRY: cachac
@@ -22,7 +22,7 @@ jobs:
       - name: GitHub branch
         run: |
           echo "branch: ${{github.ref}}"
-      
+
       - name: GitHub Tag Name
         run: |
           echo "Tag name from GITHUB_REF_NAME: $GITHUB_REF_NAME"
