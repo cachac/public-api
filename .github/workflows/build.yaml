@@ -28,9 +28,9 @@ jobs:
       - name: Get current branch
         run: |
           echo "TAG=$(git tag | sort -V | tail -1)"
-          echo "Branch is ${{TAG}}."
-          echo "::set-output name=TAG::${{TAG}}"
-          echo "OUTPUT Branch is ${{TAG}}."
+          echo "Branch is ${{env.TAG}}."
+          echo "::set-output name=TAG::${{env.TAG}}"
+          echo "OUTPUT Branch is ${{env.TAG}}."
 
 
 # git rev-parse --short HEAD
