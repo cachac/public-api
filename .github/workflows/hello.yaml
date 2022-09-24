@@ -18,12 +18,13 @@ jobs:
       - name: print-to-screen
         run: echo "Hello World ${{ secrets.MY_NAME }}!"
 
-      - name: The job has succeeded
-        if: ${{ success() }}
+      - name: The job has succeeded?
+        if: ${{ success()
         run: echo "Job Succeded!!!"
 
 
-      - name: The job has failed
+      - name: The job has failed?
         if: ${{ failure() }}
         run: echo "Job Fails :("
 
+# if: steps.build.outputs.exit_code == 0
