@@ -6,7 +6,7 @@ on:
 
 env:
   REGISTRY: cachac
-  IMAGE_NAME: kubelabs_publicapitemp
+  IMAGE_NAME: kubelabs_publicapi_test
 
 jobs:
 
@@ -42,6 +42,6 @@ jobs:
     #     title: ${{ env.RELEASE }}
     #     prerelease: false
 
-    # - name: Build the Docker image
-    #   run: docker build . --tag "${{ env.REGISTRY }}:${{ env.IMAGE_NAME }}"  --build-arg APP_ENV="${{ secret.APP_ENV }}"
+    - name: Build the Docker image
+      run: docker run --rm --name api -p 3000:3000 cachac/kubelabs_publicapi_test
 
