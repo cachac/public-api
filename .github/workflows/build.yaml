@@ -18,12 +18,14 @@ jobs:
     steps:
       - uses: actions/checkout@v3 # checkout github code
         name: Checkout code
+        with:
+          fetch-depth: 0
 
-      - name: Echo New Tag Version
+      - name: files
         run:  ls -la
 
-      - name: Echo New Tag Version
-        run:  git tag 
+      - name: git
+        run:  git tag
 
       - name: Get TAG version
         run: echo "RELEASE_VERSION=$(git tag | sort -V | tail -1)" >> $GITHUB_ENV
