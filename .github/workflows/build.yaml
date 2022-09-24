@@ -2,18 +2,19 @@ name: Docker Image CI
 
 on:
   push:
-    branches: ["stage"]
-    # tags:
-    #   - '*'
-
+    # branches: ["stage"]
+    tags:
+      - '*'
 
 env:
   REGISTRY: cachac
   IMAGE_NAME: kubelabs_publicapi_test
+  BRANCH: stage
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/${{ env.BRANCH }}'
 
     steps:
       - uses: actions/checkout@v3 # checkout github code
