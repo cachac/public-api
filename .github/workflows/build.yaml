@@ -19,10 +19,10 @@ jobs:
         name: Checkout code
 
       - name: Get TAG version
-        run: |
-          echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
-          echo "New tag version: ${{ env.RELEASE_VERSION }}"
+        run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
 
+      - name: Echo New Tag Version
+        run:  echo ${{ env.RELEASE_VERSION }}
 
       # - name: Login to DockerHub
       #   uses: docker/login-action@v2
