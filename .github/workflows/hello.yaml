@@ -19,8 +19,8 @@ jobs:
         run: echo "Hello World ${{ secrets.MY_NAME }}!"
 
       - name: The job has succeeded?
-        if: ${{ success()
-        run: echo "Job Succeded!!!"
+        if: ${{ success() }}
+        run: return 0
 
 
       - name: The job has failed?
