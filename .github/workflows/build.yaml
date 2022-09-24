@@ -27,7 +27,7 @@ jobs:
 
       - name: Get current branch
         run: |
-          TAG=$(git tag | sort -V | tail -1)
+          echo "TAG=$(git tag | sort -V | tail -1)"
           echo "Branch is ${{TAG}}."
           echo "::set-output name=TAG::${{TAG}}"
           echo "OUTPUT Branch is ${{TAG}}."
