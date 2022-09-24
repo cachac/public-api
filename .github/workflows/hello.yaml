@@ -20,7 +20,7 @@ jobs:
 
       - name: The job has succeeded?
         if: ${{ success() }}
-        run: return 0
+        run: return 1
 
 
       - name: The job has failed?
