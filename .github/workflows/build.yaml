@@ -6,6 +6,7 @@ on:
     # tags:
     #   - '*'
 
+
 env:
   REGISTRY: cachac
   IMAGE_NAME: kubelabs_publicapi_test
