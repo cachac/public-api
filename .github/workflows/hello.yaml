@@ -1,0 +1,17 @@
+name: hello-world
+
+# trigger
+on:
+  push:
+    branches: ["stage"]
+
+# pipeline
+jobs:
+
+  print: # job name
+    runs-on: ubuntu-latest # https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners
+
+    steps:
+      - name: print-to-screen
+        run: echo "Hello World!"
+
