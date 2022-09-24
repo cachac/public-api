@@ -19,12 +19,18 @@ jobs:
       - uses: actions/checkout@v3 # checkout github code
         name: Checkout code
 
+      - name: Get TAG version
+        run: echo "RELEASE_VERSION=$(git tag | sort -V | tail -1)" >> $GITHUB_ENV
+
+      - name: Echo New Tag Version
+        run:  echo ${{ env.RELEASE_VERSION }}
+
       - name: Get current branch
         run: |
           TAG=$(git tag | sort -V | tail -1)
-          echo "Branch is $TAG."
-          echo "::set-output name=TAG::$TAG"
-          echo "Branch is $TAG."
+          echo "Branch is ${{TAG}}."
+          echo "::set-output name=TAG::${{TAG}}"
+          echo "OUTPUT Branch is ${{TAG}}."
 
 
 # git rev-parse --short HEAD
