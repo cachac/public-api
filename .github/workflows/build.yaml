@@ -2,9 +2,9 @@ name: Docker Image CI
 
 on:
   push:
-    # branches: ["stage"]
-    tags:
-      - '*'
+    branches: ["stage"]
+    # tags:
+    #   - '*'
 
 env:
   REGISTRY: cachac
