@@ -27,8 +27,13 @@ jobs:
         run: |
           echo "Tag name from GITHUB_REF_NAME: $GITHUB_REF_NAME"
 
-      - name: Echo branch
-        run: echo "${{ github.event.base_ref }}"
+      - name: Get current branch
+        run: |
+          raw=$(git branch -r --contains ${{ github.ref }})
+          branch=${raw##*/}
+          echo "::set-output name=branch::$branch"
+          echo "Branch is $branch."
+
 
 
       # - name: Login to DockerHub
