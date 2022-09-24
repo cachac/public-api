@@ -3,8 +3,6 @@ name: Docker Image CI
 on:
   push:
     branches: ["stage"]
-    # tags:
-    #   - '*'
 
 env:
   REGISTRY: cachac
@@ -13,7 +11,6 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
-    # if: github.ref == 'refs/heads/stage'
 
     steps:
       - uses: actions/checkout@v3 # checkout github code
@@ -21,31 +18,24 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: 'Get Previous tag'
-        id: previoustag
-        uses: "WyriHaximus/github-action-get-previous-tag@v1"
-        with:
-          fallback: 1.0.x
+      # - name: Get TAG version
+      #   run: echo "RELEASE_VERSION=$(git tag | sort -V | tail -1)" >> $GITHUB_ENV
 
-      - name: files
-        run:  ls -la
+      # - name: Echo New Tag Version
+      #   run:  echo ${{ env.RELEASE_VERSION }}
 
-      - name: git
-        run:  git tag
-
-      - name: Get TAG version
-        run: echo "RELEASE_VERSION=$(git tag | sort -V | tail -1)" >> $GITHUB_ENV
-
-      - name: Echo New Tag Version
-        run:  echo ${{ env.RELEASE_VERSION }}
-
-      - name: Get current branch
+      - name: Get latest Tag
         run: |
           echo "TAG=$(git tag | sort -V | tail -1)"
-          echo "Branch is ${{env.TAG}}."
-          echo "::set-output name=TAG::${{env.TAG}}"
-          echo "OUTPUT Branch is ${{env.TAG}}."
+          echo "Branch is $TAG"
+          echo "::set-output name=TAG::$TAG"
+          echo "OUTPUT Branch is $TAG."
 
+      - name: Echo New Tag Version1
+        run:  echo ${{ env.TAG }}
+
+      - name: Echo New Tag Version2
+        run:  echo $TAG"
 
 # git rev-parse --short HEAD
 
