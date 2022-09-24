@@ -13,19 +13,21 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
-    # if: github.ref == 'refs/heads/stage'
+    if: github.ref == 'refs/heads/stage'
 
     steps:
       - uses: actions/checkout@v3 # checkout github code
         name: Checkout code
 
+      - name: GitHub branch
+        run: |
+          echo "branch: ${{github.ref}}"
+      
       - name: GitHub Tag Name
         run: |
           echo "Tag name from GITHUB_REF_NAME: $GITHUB_REF_NAME"
 
-      - name: GitHub branch
-        run: |
-          echo "branch: ${{github.ref}}"
+
 
       # - name: Login to DockerHub
       #   uses: docker/login-action@v2
