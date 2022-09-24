@@ -16,5 +16,5 @@ jobs:
 
     steps:
       - name: print-to-screen
-        run: echo "Hello World ${{ env.TEXT }}!"
+        run: echo "Hello World ${{ secrets.MY_NAME }}!"
 
