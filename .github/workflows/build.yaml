@@ -22,10 +22,10 @@ jobs:
           fetch-depth: 0
 
       - name: Get TAG version
-        id: tagVersion
         run: echo "RELEASE_VERSION=$(git tag | sort -V | tail -1)" >> $GITHUB_ENV
 
       - name: New Tag Version
+        id: tagVersion
         run: |
           echo ${{ env.RELEASE_VERSION }}
           echo "::set-output name=RELEASE_VERSION::hello"
