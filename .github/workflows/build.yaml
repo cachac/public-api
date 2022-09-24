@@ -2,9 +2,9 @@ name: Docker Image CI
 
 on:
   push:
-    # branches: ["stage"]
-    tags:
-      - '*'
+    branches: ["stage"]
+    # tags:
+    #   - '*'
 
 env:
   REGISTRY: cachac
@@ -13,7 +13,7 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/stage'
+    # if: github.ref == 'refs/heads/stage'
 
     steps:
       - uses: actions/checkout@v3 # checkout github code
