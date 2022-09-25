@@ -7,6 +7,8 @@ on:
 env:
   REGISTRY: cachac
   IMAGE_NAME: kubelabs_publicapi_test
+  DEPLOY_BRANCH: main
+  DEPLOY_REPO: cachac/deploy_demo
 
 jobs:
   build:
@@ -64,7 +66,43 @@ jobs:
     needs: build
 
     steps:
-    # - name: Check out code
-    #   uses: actions/checkout@v2
+      # - name: Check out code
+      #   uses: actions/checkout@v2
+
       - name: New Tag Version
         run: echo ${{ needs.build.outputs.RELEASE_VERSION }}
+
+      - name: Setup Kustomize
+        uses: imranismail/setup-kustomize@v1
+        with:
+          kustomize-version: "3.6.1"
+
+      - name: Update Kubernetes resources
+        env:
+          VERSION: ${{ needs.build.outputs.RELEASE_VERSION }}
+
+        run: |
+          echo "Cloning deploy CD Repo"
+          sh "git clone --single-branch --branch ${{ DEPLOY_BRANCH }} ${{ DEPLOY_REPO }}"
+
+          cd public-api/overlays/stage
+          echo "${{ VERSION }}"
+          kustomize edit set image KUSTOMIZE-DEFINED=${{ secrets.DOCKER_USERNAME }}/${{ IMAGE_NAME }}:${{ VERSION }}
+
+          # Optional: check yaml files Kustomized
+          kustomize build . > kustomized-apps.yml
+
+          cat kustomization.yaml
+          cat kustomized-apps.yml
+
+      - name: Commit files
+        run: |
+          git config --local user.email "deploy-bot@stotylabs.dev"
+          git config --local user.name "Storylabs deploy-Bot"
+          git commit -am "new image version, branch: staging, tag: ${{ VERSION }}"
+          git push --force origin
+
+      # - name: Push changes
+      #   uses: ad-m/github-push-action@master
+      #   with:
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
