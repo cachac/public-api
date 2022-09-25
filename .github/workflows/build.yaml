@@ -73,6 +73,8 @@ jobs:
         with:
           repository: ${{ env.DEPLOY_REPO }}
           token: ${{ secrets.DEPLOY_TOKEN }}
+          
+          
 
       - name: Setup Kustomize
         uses: imranismail/setup-kustomize@v1
