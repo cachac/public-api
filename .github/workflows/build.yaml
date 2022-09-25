@@ -83,7 +83,7 @@ jobs:
 
         run: |
           echo "Cloning deploy CD Repo"
-          sh "git clone --single-branch --branch ${{ DEPLOY_BRANCH }} ${{ DEPLOY_REPO }}"
+          sh "git clone --single-branch --branch ${{ env.DEPLOY_BRANCH }} ${{ env.DEPLOY_REPO }}"
 
           cd public-api/overlays/stage
           echo "${{ VERSION }}"
