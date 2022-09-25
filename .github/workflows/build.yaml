@@ -32,33 +32,33 @@ jobs:
           echo ${{ env.RELEASE_VERSION }}
           echo "::set-output name=RELEASE_VERSION::${{ env.RELEASE_VERSION }}"
 
-  # - name: Login to DockerHub
-  #   uses: docker/login-action@v2
-  #   with:
-  #     username: ${{ secrets.DOCKER_USERNAME }}
-  #     password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Login to DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
 
-  # - name: Build & Push
-  #   uses: docker/build-push-action@v3
-  #   with:
-  #     push: true
-  #     # file: ./path-to-dockerfile
-  #     tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ GITHUB_REF_NAME }}
-  #     build-args: |
-  #       APP_ENV=${{ secrets.APP_ENV }}
+      - name: Build & Push
+        uses: docker/build-push-action@v3
+        with:
+          push: true
+          # file: ./path-to-dockerfile
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ GITHUB_REF_NAME }}
+          build-args: |
+            APP_ENV=${{ secrets.APP_ENV }}
 
-  # DOCKER RUN to test container
-  # - name: Build the Docker image
-  #   run: docker run --rm --name api -p 3000:3000 cachac/kubelabs_publicapi_test
+      # DOCKER RUN to test container
+      # - name: Build the Docker image
+      #   run: docker run --rm --name api -p 3000:3000 cachac/kubelabs_publicapi_test
 
-  # EXTRA
-  # - uses: "marvinpinto/action-automatic-releases@latest"
-  #   name: Release
-  #   with:
-  #     repo_token: "${{ secrets.GITHUB_TOKEN }}"
-  #     automatic_release_tag: ${{ env.VERSION }}
-  #     title: ${{ env.RELEASE }}
-  #     prerelease: false
+      # EXTRA
+      # - uses: "marvinpinto/action-automatic-releases@latest"
+      #   name: Release
+      #   with:
+      #     repo_token: "${{ secrets.GITHUB_TOKEN }}"
+      #     automatic_release_tag: ${{ env.VERSION }}
+      #     title: ${{ env.RELEASE }}
+      #     prerelease: false
 
   deploy:
     name: Deploy
@@ -94,4 +94,3 @@ jobs:
           git config --local user.name "Storylabs deploy-Bot"
           git commit -am "New image version, branch: staging, tag: ${{ env.VERSION }}"
           git push --force origin
-
