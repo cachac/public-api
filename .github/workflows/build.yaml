@@ -66,8 +66,10 @@ jobs:
     needs: build
 
     steps:
-      # - name: Check out code
-      #   uses: actions/checkout@v2
+      - uses: actions/checkout@v2
+        with:
+          repository: ${{ env.DEPLOY_REPO }}
+          token: ${{ secrets.DEPLOY_TOKEN }}
 
       - name: New Tag Version
         run: echo ${{ needs.build.outputs.RELEASE_VERSION }}
@@ -82,8 +84,7 @@ jobs:
           VERSION: ${{ needs.build.outputs.RELEASE_VERSION }}
 
         run: |
-          echo "Cloning deploy CD Repo"
-          sh "git clone --single-branch --branch ${{ env.DEPLOY_BRANCH }} ${{ env.DEPLOY_REPO }}"
+          # echo "Cloning deploy CD Repo"
 
           ls
           echo "${{ env.VERSION }}"
