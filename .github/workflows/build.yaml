@@ -8,7 +8,7 @@ env:
   REGISTRY: cachac
   IMAGE_NAME: kubelabs_publicapi_test
   DEPLOY_BRANCH: main
-  DEPLOY_REPO: cachac/deploy_demo
+  DEPLOY_REPO: cachac/deploy-demo
 
 jobs:
   build:
@@ -85,8 +85,10 @@ jobs:
           echo "Cloning deploy CD Repo"
           sh "git clone --single-branch --branch ${{ env.DEPLOY_BRANCH }} ${{ env.DEPLOY_REPO }}"
 
-          cd public-api/overlays/stage
+          ls
           echo "${{ env.VERSION }}"
+
+          cd public-api/overlays/stage
           kustomize edit set image KUSTOMIZE-DEFINED=${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
 
           # Optional: check yaml files Kustomized
@@ -102,7 +104,3 @@ jobs:
           git commit -am "new image version, branch: staging, tag: ${{ env.VERSION }}"
           git push --force origin
 
-      # - name: Push changes
-      #   uses: ad-m/github-push-action@master
-      #   with:
-      #     github_token: ${{ secrets.GITHUB_TOKEN }}
