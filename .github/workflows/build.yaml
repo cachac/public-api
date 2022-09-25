@@ -86,7 +86,7 @@ jobs:
           sh "git clone --single-branch --branch ${{ env.DEPLOY_BRANCH }} ${{ env.DEPLOY_REPO }}"
 
           cd public-api/overlays/stage
-          echo "${{ VERSION }}"
+          echo "${{ env.VERSION }}"
           kustomize edit set image KUSTOMIZE-DEFINED=${{ secrets.DOCKER_USERNAME }}/${{ IMAGE_NAME }}:${{ env.VERSION }}
 
           # Optional: check yaml files Kustomized
