@@ -99,7 +99,7 @@ jobs:
         run: |
           git config --local user.email "deploy-bot@stotylabs.dev"
           git config --local user.name "Storylabs deploy-Bot"
-          git commit -am "new image version, branch: staging, tag: ${{ VERSION }}"
+          git commit -am "new image version, branch: staging, tag: ${{ env.VERSION }}"
           git push --force origin
 
       # - name: Push changes
