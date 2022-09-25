@@ -43,7 +43,7 @@ jobs:
         with:
           push: true
           # file: ./path-to-dockerfile
-          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ GITHUB_REF_NAME }}
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.RELEASE_VERSION }}
           build-args: |
             APP_ENV=${{ secrets.APP_ENV }}
 
