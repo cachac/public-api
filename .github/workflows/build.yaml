@@ -87,7 +87,7 @@ jobs:
 
           cd public-api/overlays/stage
           echo "${{ env.VERSION }}"
-          kustomize edit set image KUSTOMIZE-DEFINED=${{ secrets.DOCKER_USERNAME }}/${{ IMAGE_NAME }}:${{ env.VERSION }}
+          kustomize edit set image KUSTOMIZE-DEFINED=${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
 
           # Optional: check yaml files Kustomized
           kustomize build . > kustomized-apps.yml
