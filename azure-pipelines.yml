@@ -17,9 +17,7 @@ stages: # jobs GA
     jobs:   # steps GA
       - job: Build
         displayName: Build
-        pool:
-          vmImage: $(vmImageName)
-
+        
         steps:
           - task: Docker@2
             displayName: Build an image
