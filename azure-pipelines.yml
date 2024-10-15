@@ -35,6 +35,7 @@ stages: # jobs GA
               repository: ${{ parameters.imageName }}
               command: build
               dockerfile: '**/qa.dockerfile'
-              tags: ${{ parameters.tag }}
-              arguments:  '--build-arg APP_ENV=${{ app_var }}'
+              tags: | 
+                ${{ parameters.tag }}
+              arguments:  '--build-arg APP_ENV="$(app_var)"'
 
