@@ -34,8 +34,18 @@ stages: # jobs GA
             inputs:
               repository: ${{ parameters.imageName }}
               command: build
+              containerRegistry: 'registryConnection'                         <------------------------------ repository service connection
               dockerfile: '**/qa.dockerfile'
               tags: | 
                 ${{ parameters.tag }}
               arguments:  '--build-arg APP_ENV="$(app_var)"'
+
+          - task: Docker@2                                                    <------------------------------ push task
+            displayName: 'Push Docker Image'
+            inputs:
+              command: 'push'
+              containerRegistry: 'registryConnection'
+              repository: ${{ parameters.imageName }}
+              tags: |
+                ${{ parameters.tag }}
 
