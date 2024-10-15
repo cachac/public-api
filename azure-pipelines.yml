@@ -1,6 +1,8 @@
 trigger:
   - main
-  
+
+pool: local-agent
+
 resources:
   - repo: self
 
@@ -8,7 +10,7 @@ variables:
   tag: '$(Build.BuildId)'
   imageName: 'public-api'
   vmImageName: ubuntu-latest
-  
+
 stages: # jobs GA
   - stage: Build
     displayName: Build Image
