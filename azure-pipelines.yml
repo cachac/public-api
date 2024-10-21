@@ -8,7 +8,7 @@ resources:
   - repo: self
 
 variables:
-  - group: CICD
+  - group: "CICD"
   - name: app_var
     value: $[variables.appVariable]
 
