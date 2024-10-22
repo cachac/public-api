@@ -49,4 +49,11 @@ stages: # jobs GA
               repository: ${{ parameters.imageName }}
               tags: |
                 ${{ parameters.tag }}
+                
+      - job: Deploy
+        displayName: Deploy
+        dependsOn: Build
+        steps:
+          - script: echo "Deploying..."
+
 
