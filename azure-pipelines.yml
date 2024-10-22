@@ -11,6 +11,10 @@ variables:
   - group: "CICD"
   - name: app_var
     value: $[variables.appVariable]
+  - name: acr_username
+    value: $[variables.acrUsername]
+  - name: acr_password
+    value: $[variables.acrPassword]
 
 parameters:
   - name: tag
@@ -49,11 +53,16 @@ stages: # jobs GA
               repository: ${{ parameters.imageName }}
               tags: |
                 ${{ parameters.tag }}
-                
+
       - job: Deploy
         displayName: Deploy
         dependsOn: Build
         steps:
-          - script: echo "Deploying..."
-
-
+          - task: AzureContainerApps@1
+            inputs:
+              azureSubscription: 'appDeployConnection-1'
+              imageToDeploy: acrappscarlos.azurecr.io/${{ parameters.imageName }}:$(Build.BuildId)
+              containerName: 'app-public-api'
+              resourceGroup: rgcachac-k
+              acrUsername: $(acr_username)
+              acrPassword: $(acr_password)
