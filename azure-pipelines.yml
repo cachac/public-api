@@ -1,68 +1,28 @@
-# test 01
 trigger:
-  - main
-
-pool: local-agent
+- main
 
 resources:
-  - repo: self
+- repo: self
 
 variables:
-  - group: "CICD"
-  - name: app_var
-    value: $[variables.appVariable]
-  - name: acr_username
-    value: $[variables.acrUsername]
-  - name: acr_password
-    value: $[variables.acrPassword]
+  tag: '$(Build.BuildId)'
+  imageName: 'public-api'
+  vmImageName: ubuntu-latest
 
-parameters:
-  - name: tag
-    default: '$(Build.BuildId)'
+stages:
+- stage: Build
+  displayName: Build image
+  jobs:
+  - job: Build
+    displayName: Build
+    pool:
+      vmImage: $(vmImageName)
 
-  - name: imageName
-    default: 'public-api'
-
-stages: # jobs GA
-  - stage: Build
-    displayName: Build Image
-    jobs:   # steps GA
-      - job: Build
-        displayName: Build
-        
-        steps:
-          - script: |
-              echo "var=$(app_var)"
-
-          - task: Docker@2
-            displayName: Build an image
-            inputs:
-              repository: ${{ parameters.imageName }}
-              command: build
-              containerRegistry: 'registryConnection'   
-              dockerfile: '**/qa.dockerfile'
-              tags: | 
-                ${{ parameters.tag }}
-              arguments:  '--build-arg APP_ENV=$(app_var)'
-
-          - task: Docker@2
-            displayName: 'Push Docker Image'
-            inputs:
-              command: 'push'
-              containerRegistry: 'registryConnection'
-              repository: ${{ parameters.imageName }}
-              tags: |
-                ${{ parameters.tag }}
-
-      - job: Deploy
-        displayName: Deploy
-        dependsOn: Build
-        steps:
-          - task: AzureContainerApps@1
-            inputs:
-              azureSubscription: 'appDeployConnection-1'
-              imageToDeploy: acrappscarlos.azurecr.io/${{ parameters.imageName }}:$(Build.BuildId)
-              containerName: 'app-public-api'
-              resourceGroup: rgcachac-k
-              acrUsername: $(acr_username)
-              acrPassword: $(acr_password)
+    steps:
+    - task: Docker@2
+      displayName: Build an image
+      inputs:
+        repository: $(imageName)
+        command: build
+        dockerfile: '**/qa.dockerfile'
+        tags: $(tag)
