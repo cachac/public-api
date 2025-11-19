@@ -34,13 +34,13 @@ stages:
         dockerfile: '**/qa.dockerfile'
         tags: ${{ parameters.tag }}
         arguments: '--build-arg APP_ENV=$(app_var)'
-        # containerRegistry: 'registryConnection'
+        containerRegistry: 'registryConnection'
 
     - task: Docker@2
       displayName: Push
       inputs:
         command: push
-        # containerRegistry: 'registryConnection'
+        containerRegistry: 'registryConnection'
         repository: ${{ parameters.imageName }}
         tags: ${{ parameters.tag }}
 
