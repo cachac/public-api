@@ -30,8 +30,8 @@ stages:
       displayName: Build an image
       inputs:
         command: build
-        repository: $(parameters.imageName)
+        repository: ${{parameters.imageName}}
         dockerfile: '**/qa.dockerfile'
-        tags: $(parameters.tag)
+        tags: ${{parameters.tag}}
         arguments: '--build-arg APP_ENV=$(app_var)'
         # containerRegistry: 'registryConnection'
