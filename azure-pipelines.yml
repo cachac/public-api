@@ -34,4 +34,4 @@ stages:
         dockerfile: '**/qa.dockerfile'
         tags: $(parameters.tag)
         arguments: '--build-arg APP_ENV=$(app_var)'
-        containerRegistry: 'registryConnection'
+        # containerRegistry: 'registryConnection'
