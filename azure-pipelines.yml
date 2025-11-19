@@ -5,11 +5,20 @@ resources:
 - repo: self
 
 variables:
-  tag: '$(Build.BuildId)'
-  imageName: 'public-api'
-  agentName: 'local-agent'
+  - group: "CICD"
+  - name: app_var
+    value: $[variables.appVariable]
+parameters:
+  - name: tag
+    default: "$(Build.BuildId)"
+  - name: imageName
+    default: "public-api"
 
 stages:
+- script: |
+    echo "var=$(app_var)"
+    echo "tag=${{ parameters.tag }}"
+
 - stage: Build
   displayName: Build image
   jobs:
@@ -21,7 +30,9 @@ stages:
     - task: Docker@2
       displayName: Build an image
       inputs:
-        repository: $(imageName)
         command: build
+        repository: $(parameters.imageName)
         dockerfile: '**/qa.dockerfile'
-        tags: $(tag)
+        tags: $(parameters.tag)
+        arguments: '--build-arg APP_ENV=$(app_var)'
+        containerRegistry: 'registryConnection'
