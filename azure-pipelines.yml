@@ -44,3 +44,10 @@ stages:
         repository: ${{ parameters.imageName }}
         tags: ${{ parameters.tag }}
 
+  - job: Deploy
+    displayName: Deploy
+    dependsOn: Build
+    pool: local-agent
+    steps: 
+      - script: echo "Deploying..."
+
