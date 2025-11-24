@@ -56,7 +56,7 @@ stages:
       - script: echo "Deploying..."
       - task: AzureContainerApps@1
         inputs:
-          azureSubscription: appDeployConnection
+          azureSubscription: registryConnection
           imageToDeploy: acrapps2.azurecr.io/${{ parameters.imageName }}:${{ parameters.tag }}
 
           containerAppName: app-public-api-carlos
